@@ -4,7 +4,7 @@ import EventListAttendee from './EventListAttendee';
 
 export default class EventListItem extends Component {
   render() {
-    const {event} = this.props.event;
+    const event = this.props.event;
     return (
            <Segment.Group>
               <Segment>
