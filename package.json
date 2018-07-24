@@ -6,6 +6,7 @@
     "cuid": "^2.1.1",
     "date-fns": "^1.29.0",
     "firebase": "^4.12.1",
+    "gh-pages": "^1.2.0",
     "google-map-react": "^0.34.0",
     "history": "^4.7.2",
     "jest-cli": "^23.4.1",
@@ -39,10 +40,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.2",
     "source-map-explorer": "^1.5.0"
-  }
+  },
+  "homepage": "https://myusername.github.io/ReventsWeb"
 }
