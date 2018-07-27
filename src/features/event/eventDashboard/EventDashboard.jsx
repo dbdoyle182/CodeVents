@@ -56,15 +56,35 @@ const eventsDashboard = [
 
 
 export default class EventDashBoard extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      events: eventsDashboard,
+      isOpen: false
+    }
+
+    
+  }
+
+  // Toggles the event form on click
+  handleFormToggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+  }
+
   render() {
     return (
       <Grid>
         <Grid.Column width={10}>
-            <EventList events={eventsDashboard}/>
+            <EventList events={this.state.events}/>
         </Grid.Column>
         <Grid.Column width={6}>
-          <Button positive content='Create Event' />
-            <EventForm />
+          <Button positive content='Create Event' onClick={this.handleFormToggle} />
+          {this.state.isOpen &&
+            <EventForm handleCancel={this.handleFormToggle}/>
+          }
         </Grid.Column>
       </Grid>
     )
