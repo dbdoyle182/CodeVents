@@ -8,7 +8,7 @@ const eventsDashboard = [
   {
     id: '1',
     title: 'Trip to Tower of London',
-    date: '2018-03-27T11:00:00+00:00',
+    date: '2018-03-27',
     category: 'culture',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
@@ -32,7 +32,7 @@ const eventsDashboard = [
   {
     id: '2',
     title: 'Trip to Punch and Judy Pub',
-    date: '2018-03-28T14:00:00+00:00',
+    date: '2018-03-28',
     category: 'drinks',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
@@ -51,7 +51,7 @@ const eventsDashboard = [
         name: 'Bob',
         photoURL: 'https://randomuser.me/api/portraits/men/20.jpg'
       }
-    ]
+    ]  
   }
 ]
 
@@ -62,7 +62,8 @@ export default class EventDashBoard extends Component {
 
     this.state = {
       events: eventsDashboard,
-      isOpen: false
+      isOpen: false,
+      selectedEvent: null
     }
 
     
@@ -71,6 +72,7 @@ export default class EventDashBoard extends Component {
   // Toggles the event form on click
   handleFormToggle = () => {
     this.setState({
+      selectedEvent: null,
       isOpen: !this.state.isOpen
     })
   }
@@ -86,18 +88,49 @@ export default class EventDashBoard extends Component {
     })
   }
 
+  handleUpdateEvent = (updatedEvent) => {
+    this.setState({
+      events: this.state.events.map(event => {
+        if(event.id === updatedEvent.id) {
+          return {...updatedEvent}
+        } else {
+          return event
+        }
+      }),
+      isOpen: false,
+      selectedEvent: null
+    })
+  }
+
+  handleOpenEvent = (eventToOpen) => () => {
+    this.setState({
+      selectedEvent: eventToOpen,
+      isOpen: true
+    })
+  }
+
+  handleDeleteEvent = (eventId) => () => {
+    const updatedEvents = this.state.events.filter(event => event.id !== eventId)
+    this.setState({
+      events: updatedEvents
+    })
+  }
+
   render() {
+    const {selectedEvent} = this.state;
     return (
       <Grid>
         <Grid.Column width={10}>
-            <EventList events={this.state.events}/>
+            <EventList deleteEvents={this.handleDeleteEvent} onEventOpen={this.handleOpenEvent} events={this.state.events}/>
         </Grid.Column>
         <Grid.Column width={6}>
           <Button positive content='Create Event' onClick={this.handleFormToggle} />
           {this.state.isOpen &&
             <EventForm 
+              selectedEvent={selectedEvent}
               handleCancel={this.handleFormToggle} 
               createEvents={this.handleCreateEvent}
+              updateEvent={this.handleUpdateEvent}
             />
           }
         </Grid.Column>
