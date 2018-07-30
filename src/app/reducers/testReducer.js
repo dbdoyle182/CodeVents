@@ -1,5 +1,5 @@
 const initialState = {
-    data: 42
+    data: 54352345
 }
 
 const testReducer = (state = initialState, action) => {
