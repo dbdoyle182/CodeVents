@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Segment, Image, Item, Header, Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 const eventImageStyle = {
     filter: 'brightness(30%)'
@@ -61,7 +62,7 @@ export class EventDetailedHeader extends Component {
               <Button style={eventButtonStyle}>Cancel My Place</Button>
               <Button style={joinButtonStyle} color="teal">JOIN THIS EVENT</Button>
       
-              <Button style={eventButtonStyle} color="orange" floated="right">
+              <Button as={Link} to={`/manage/${event.id}`}style={eventButtonStyle} color="orange" floated="right">
                 Manage Event
               </Button>
             </Segment>
