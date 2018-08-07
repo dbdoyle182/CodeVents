@@ -29,7 +29,7 @@ class EventDashBoard extends Component {
             events={events}/>
         </Grid.Column>
         <Grid.Column width={6}>
-          <h1>WEEN</h1>
+          <h1>Sidebar</h1>
         </Grid.Column>
       </Grid>
     )

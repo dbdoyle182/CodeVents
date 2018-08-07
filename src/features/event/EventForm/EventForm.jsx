@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Segment, Form, Button, Grid, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import moment from 'moment';
 import { composeValidators, combineValidators, isRequired, hasLengthGreaterThan } from 'revalidate';
 import { createEvent, updateEvent } from '../eventActions';
 import cuid from 'cuid';
 import TextInput from '../../../app/common/form/TextInput';
 import TextArea from '../../../app/common/form/TextArea';
 import SelectInput from '../../../app/common/form/SelectInput';
-
+import DateInput from '../../../app/common/form/DateInput';
 
 
 
@@ -48,7 +49,8 @@ const validate = combineValidators({
     hasLengthGreaterThan(4)({message: 'Description must have at least 5 characters'})
   )(),
   city: isRequired('city'),
-  venue: isRequired('venue')
+  venue: isRequired('venue'),
+  date: isRequired('date')
 })
 
 class EventForm extends Component {
@@ -61,6 +63,7 @@ class EventForm extends Component {
   }
 
   handleFormSubmit = (values) => {
+    values.date = moment(values.date).format();
     if (this.props.initialValues.id) {
       this.props.updateEvent(values);
       this.props.history.goBack();
@@ -107,7 +110,15 @@ class EventForm extends Component {
               <Header sub color='teal' content='Event Location Details'/>
               <Field name='city' type='text' component={TextInput} placeholder='Event City'/>
               <Field name='venue' type='text' component={TextInput} placeholder='Event Venue'/>
-              <Field name='date' type='text' component={TextInput} placeholder='Event Date'/>
+              <Field 
+                name='date' 
+                type='text' 
+                component={DateInput} 
+                dateFormat='YYYY-MM-DD HH:mm' 
+                timeFormat='HH:mm'
+                showTimeSelect 
+                placeholder='Date and Time of Event'
+              />
               
               <Button disabled={invalid || submitting || pristine} positive type="submit">
                 Submit
