@@ -63,10 +63,12 @@ class EventForm extends Component {
 
     this.state = {
       cityLatLng: {},
-      venueLatLng: {}
-      
+      venueLatLng: {},
+      scriptLoaded: false      
     }
   }
+
+  handScriptLoad = () => this.setState({scriptLoaded: true});
 
   handleCitySelect = (selectedCity) => {
     geocodeByAddress(selectedCity)
@@ -75,6 +77,9 @@ class EventForm extends Component {
         this.setState({
           cityLatLng: latlng
         })
+      })
+      .then(() => {
+        this.props.change('city', selectedCity)
       })
   }
 
@@ -99,6 +104,10 @@ class EventForm extends Component {
     const { invalid, submitting, pristine } = this.props;
     return (
       <Grid>
+        <Script 
+        url="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy_XNQvLJIW_m_p_RFQshsVMbSvOm4RAs&libraries=places" 
+        onLoad={this.handScriptLoad}
+        />
         <Grid.Column width={10}>
           <Segment>
             <Header sub color='teal' content='Event Details'/>
@@ -132,6 +141,7 @@ class EventForm extends Component {
                 placeholder='Event City'
                 onSelect={this.handleCitySelect}
               />
+              {this.state.scriptLoaded &&
               <Field 
                 name='venue' 
                 type='text' 
@@ -142,7 +152,7 @@ class EventForm extends Component {
                 }}
                 component={PlaceInput} 
                 placeholder='Event Venue'
-              />
+              />}
               <Field 
                 name='date' 
                 type='text' 

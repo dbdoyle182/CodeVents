@@ -53,3 +53,5 @@ class NavBar extends Component {
 }
 
 export default withRouter(NavBar);
+
+
