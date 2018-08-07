@@ -8,7 +8,7 @@ export const configureStore = (preloadedState) => {
 
     const storeEnhancers = [middlewareEnhancer];
 
-    const composedEnhancer = composeWithDevTools(... storeEnhancers);
+    const composedEnhancer = composeWithDevTools(...storeEnhancers);
 
     const store = createStore(
         rootReducer,
