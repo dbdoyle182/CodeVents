@@ -14,6 +14,14 @@ const eventImageTextStyle = {
     color: 'white'
 };
 
+const eventButtonStyle = {
+  width: '30%',
+}
+
+const joinButtonStyle = {
+  width: '36%'
+}
+
 export class EventDetailedHeader extends Component {
   render() {
     return (
@@ -41,10 +49,10 @@ export class EventDetailedHeader extends Component {
             </Segment>
       
             <Segment attached="bottom">
-              <Button>Cancel My Place</Button>
-              <Button color="teal">JOIN THIS EVENT</Button>
+              <Button style={eventButtonStyle}>Cancel My Place</Button>
+              <Button style={joinButtonStyle} color="teal">JOIN THIS EVENT</Button>
       
-              <Button color="orange" floated="right">
+              <Button style={eventButtonStyle} color="orange" floated="right">
                 Manage Event
               </Button>
             </Segment>
