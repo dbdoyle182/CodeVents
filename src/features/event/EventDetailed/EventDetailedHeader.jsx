@@ -23,11 +23,20 @@ const joinButtonStyle = {
 }
 
 export class EventDetailedHeader extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       
+    }
+  }
+  
   render() {
+    const { event } = this.props
     return (
          <Segment.Group>
             <Segment basic attached="top" style={{ padding: '0' }}>
-              <Image src="/assets/categoryImages/drinks.jpg" style={eventImageStyle} fluid />
+              <Image src={`/assets/categoryImages/${event.category}.jpg`} style={eventImageStyle} fluid />
       
               <Segment basic style={eventImageTextStyle}>
                 <Item.Group>
@@ -35,12 +44,12 @@ export class EventDetailedHeader extends Component {
                     <Item.Content>
                       <Header
                         size="huge"
-                        content="Event Title"
+                        content={event.title}
                         style={{ color: 'white' }}
                       />
-                      <p>Event Date</p>
+                      <p>{event.date}</p>
                       <p>
-                        Hosted by <strong>Hosted by</strong>
+                        Hosted by <strong>{event.hostedBy}</strong>
                       </p>
                     </Item.Content>
                   </Item>
