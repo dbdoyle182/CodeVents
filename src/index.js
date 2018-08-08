@@ -7,8 +7,10 @@ import './index.css';
 import App from './app/layouts/App';
 import registerServiceWorker from './registerServiceWorker';
 import { configureStore } from './app/store/configureStore';
+import ReduxToastr from 'react-redux-toastr'
 import ScrollToTop from './app/common/util/ScrollToTop';
 import { loadEvents } from './features/event/eventActions';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 const store = configureStore();
 store.dispatch(loadEvents())
@@ -20,6 +22,11 @@ let render = () => {
         <Provider store={store}>
         <BrowserRouter>
             <ScrollToTop>
+                <ReduxToastr
+                    position='bottom-right'
+                    transistionIn='fadeIn'
+                    transistionOut='fadeOut'
+                />
                 <App />
             </ScrollToTop>
         </BrowserRouter>
