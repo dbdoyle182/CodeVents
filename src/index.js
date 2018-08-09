@@ -9,11 +9,10 @@ import registerServiceWorker from './registerServiceWorker';
 import { configureStore } from './app/store/configureStore';
 import ReduxToastr from 'react-redux-toastr'
 import ScrollToTop from './app/common/util/ScrollToTop';
-import { loadEvents } from './features/event/eventActions';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 const store = configureStore();
-store.dispatch(loadEvents())
+
 
 const rootEl = document.getElementById("root");
 

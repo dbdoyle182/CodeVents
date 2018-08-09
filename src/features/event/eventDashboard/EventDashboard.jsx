@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import EventList from '../EventList/EventList';
+import { firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { deleteEvent } from '../eventActions';
 import LoadingComponent from '../../../app/layouts/LoadingComponent';
 import EventActivity from '../EventActivity/EventActivity'
 
 const mapState = state => ({
-  events: state.events,
+  events: state.firestore.ordered.events,
   loading: state.async.loading
 });
 
@@ -40,4 +41,6 @@ class EventDashBoard extends Component {
   }
 };
 
-export default connect(mapState, actions)(EventDashBoard);
+export default connect(mapState, actions)(
+  firestoreConnect([{collection: 'events'}])(EventDashBoard)
+);
