@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Grid, Icon, Button } from 'semantic-ui-react';
 import EventDetailedMap from './EventDetailedMap';
+import format from 'date-fns/format';
 
 export class EventDetailedInfo extends Component {
   constructor(props) {
@@ -9,6 +10,12 @@ export class EventDetailedInfo extends Component {
     this.state = {
        showMap: false
     }
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      showMap: false
+    })
   }
 
   showMapToggle = () => {
@@ -37,7 +44,7 @@ export class EventDetailedInfo extends Component {
                   <Icon name="calendar" size="large" color="teal" />
                 </Grid.Column>
                 <Grid.Column width={15}>
-                  <span>{event.date}</span>
+                  <span>{format(event.date, 'dddd Do MMM')} at {format(event.date, 'h:mm A')}</span>
                 </Grid.Column>
               </Grid>
             </Segment>
