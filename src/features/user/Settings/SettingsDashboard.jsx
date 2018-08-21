@@ -8,9 +8,11 @@ import PhotosPage from './PhotosPage';
 import BasicPage from './BasicPage';
 import AccountPage from './AccountPage';
 import { updatePassword } from '../../auth/authActions';
+import { updateProfile } from '../userActions';
 
 const actions = {
-  updatePassword
+  updatePassword,
+  updateProfile
 }
 
 const mapState = (state) => ({
@@ -20,13 +22,13 @@ const mapState = (state) => ({
 
 class SettingsDashboard extends Component {
   render() {
-    const { updatePassword, providerId, user } = this.props
+    const { updatePassword, providerId, user, updateProfile } = this.props
     return (
       <Grid>
         <Grid.Column width={12}>
           <Switch>
             <Redirect exact from='/settings' to='/settings/basic' />
-            <Route path='/settings/basics' render={() => <BasicPage initialValues={user}/>}/>
+            <Route path='/settings/basics' render={() => <BasicPage updateProfile={updateProfile} initialValues={user}/>}/>
             <Route path='/settings/about' component={AboutPage}/>
             <Route path='/settings/photos' component={PhotosPage}/>
             <Route path='/settings/account' render={() => <AccountPage updatePassword={updatePassword} providerId={providerId}/>}/>
