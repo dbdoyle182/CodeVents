@@ -7,7 +7,7 @@ export default class SettingsNav extends Component {
       <Grid.Column width={4}>
         <Menu vertical>
           <Header icon="user" attached inverted color="grey" content="Profile" />
-          <Menu.Item as={NavLink} to='/settings/basic'>Basics</Menu.Item>
+          <Menu.Item as={NavLink} to='/settings/basics'>Basics</Menu.Item>
           <Menu.Item as={NavLink} to='/settings/about'>About Me</Menu.Item>
           <Menu.Item as={NavLink} to='/settings/photos'>My Photos</Menu.Item>
         </Menu>
