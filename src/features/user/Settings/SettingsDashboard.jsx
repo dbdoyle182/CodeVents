@@ -13,10 +13,13 @@ const actions = {
   updatePassword
 }
 
+const mapState = (state) => ({
+  providerId: state.firebase.auth.providerData[0].providerId
+})
 
 class SettingsDashboard extends Component {
   render() {
-    const { updatePassword } = this.props
+    const { updatePassword, providerId } = this.props
     return (
       <Grid>
         <Grid.Column width={12}>
@@ -25,7 +28,7 @@ class SettingsDashboard extends Component {
             <Route path='/settings/basics' component={BasicPage}/>
             <Route path='/settings/about' component={AboutPage}/>
             <Route path='/settings/photos' component={PhotosPage}/>
-            <Route path='/settings/account' render={() => <AccountPage updatePassword={updatePassword} />}/>
+            <Route path='/settings/account' render={() => <AccountPage updatePassword={updatePassword} providerId={providerId}/>}/>
           </Switch>
         </Grid.Column>
         <Grid.Column width={4}>
@@ -36,4 +39,4 @@ class SettingsDashboard extends Component {
   }
 }
 
-export default connect(null, actions)(SettingsDashboard);
+export default connect(mapState, actions)(SettingsDashboard);
