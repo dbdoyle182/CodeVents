@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SettingsNav from './SettingsNav';
 import AboutPage from './AboutPage';
 import PhotosPage from './PhotosPage';
 import BasicPage from './BasicPage';
 import AccountPage from './AccountPage';
+import { updatePassword } from '../../auth/authActions';
 
-export default class SettingsDashboard extends Component {
+const actions = {
+  updatePassword
+}
+
+
+class SettingsDashboard extends Component {
   render() {
+    const { updatePassword } = this.props
     return (
       <Grid>
         <Grid.Column width={12}>
@@ -17,7 +25,7 @@ export default class SettingsDashboard extends Component {
             <Route path='/settings/basics' component={BasicPage}/>
             <Route path='/settings/about' component={AboutPage}/>
             <Route path='/settings/photos' component={PhotosPage}/>
-            <Route path='/settings/account' component={AccountPage}/>
+            <Route path='/settings/account' render={() => <AccountPage updatePassword={updatePassword} />}/>
           </Switch>
         </Grid.Column>
         <Grid.Column width={4}>
@@ -27,3 +35,5 @@ export default class SettingsDashboard extends Component {
     )
   }
 }
+
+export default connect(null, actions)(SettingsDashboard);
