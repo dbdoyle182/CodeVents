@@ -77,18 +77,13 @@ class UserDetailedPage extends Component {
 
                                 <Header icon='heart outline' content='Interests'/>
                                 <List>
-                                    <Item>
-                                        <Icon name='heart'/>
-                                        <Item.Content>Interest 1</Item.Content>
-                                    </Item>
-                                    <Item>
-                                        <Icon name='heart'/>
-                                        <Item.Content>Interest 2</Item.Content>
-                                    </Item>
-                                    <Item>
-                                        <Icon name='heart'/>
-                                        <Item.Content>Interest 3</Item.Content>
-                                    </Item>
+                                {profile.interests && profile.interests.map(interest => (
+                                  <Item>
+                                    <Icon name='heart'/>
+                                    <Item.Content>{interest}</Item.Content>
+                                  </Item>
+                                ))
+                                }         
                                 </List>
                             </Grid.Column>
                         </Grid>
