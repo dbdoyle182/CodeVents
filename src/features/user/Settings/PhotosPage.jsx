@@ -7,7 +7,7 @@ import Dropzone from 'react-dropzone';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import { toastr } from 'react-redux-toastr';
-import { uploadProfileImage, deletePhoto } from '../userActions';
+import { uploadProfileImage, deletePhoto, setMainPhoto } from '../userActions';
 
 const query = ({auth}) => {
     return [
@@ -22,7 +22,8 @@ const query = ({auth}) => {
 
 const actions = {
     uploadProfileImage,
-    deletePhoto
+    deletePhoto,
+    setMainPhoto
 };
 
 const mapState = (state) => ({
@@ -58,6 +59,15 @@ class PhotosPage extends Component {
             toastr.error('Oops', error.message)
         }
        
+    }
+
+    handleSetMainPhoto = photo => async () => {
+        try {
+            this.props.setMainPhoto(photo)
+            toastr.success("Success!", "Your profile picture was updated.")
+        } catch (error) {
+            toastr.error('Oops', error.message)
+        }
     }
 
     cancelCrop = () => {
@@ -159,7 +169,7 @@ class PhotosPage extends Component {
                                 src={photo.url}
                             />
                             <div className='ui two buttons'>
-                                <Button basic color='green'>Main</Button>
+                                <Button onClick={this.handleSetMainPhoto(photo)} basic color='green'>Main</Button>
                                 <Button onClick={this.handlePhotoDelete(photo)} basic icon='trash' color='red' />
                             </div>
                         </Card>
