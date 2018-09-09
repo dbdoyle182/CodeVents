@@ -3,7 +3,7 @@ import {Button, Card, Grid, Header, Icon, Image, Item, List, Menu, Segment} from
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import differenceInYears from 'date-fns/difference_in_years';
+import { differenceInYears, format } from 'date-fns';
 
 const query = ({auth}) => {
   return [
@@ -28,14 +28,21 @@ class UserDetailedPage extends Component {
     render() {
         const { auth, profile } = this.props
         let age;
+        let profileCreated;
         if ( profile.dateOfBirth) {
           age = differenceInYears(Date.now(), profile.dateOfBirth.toDate())
         } else {
           age = 'unknown age'
         }
+        if (profile.createdAt) {
+          profileCreated = format(profile.createdAt.toDate(), 'MMM dddd, YYYY')
+        } else {
+          profileCreated = "Unknown"
+        }
         console.log(auth)
         console.log("----profile-----")
         console.log(profile)
+        console.log(profileCreated)
         return (
             <Grid>
                 <Grid.Column width={16}>
@@ -60,10 +67,10 @@ class UserDetailedPage extends Component {
                         <Grid columns={2}>
                             <Grid.Column width={10}>
                                 <Header icon='smile' content='About Display Name'/>
-                                <p>I am a: <strong>Occupation Placeholder</strong></p>
-                                <p>Originally from <strong>United Kingdom</strong></p>
-                                <p>Member Since: <strong>28th March 2018</strong></p>
-                                <p>Description of user</p>
+                                <p>I am a: <strong>{profile.occupation}</strong></p>
+                                <p>Originally from <strong>{profile.city}</strong></p>
+                                <p>Member Since: <strong>{profileCreated}</strong></p>
+                                <p>{profile.about}</p>
 
                             </Grid.Column>
                             <Grid.Column width={6}>
